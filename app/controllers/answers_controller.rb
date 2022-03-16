@@ -17,7 +17,7 @@ class AnswersController < ApplicationController
     @answer = @question.answers.new(answer_params)
     @answer.author = current_user
     if @answer.save
-      redirect_to @question, notice: 'Your answer successfully created.'
+      # redirect_to @question, notice: 'Your answer successfully created.'
     #  else
     #   redirect_to @question, notice: "Answer can't be blank."
     end
