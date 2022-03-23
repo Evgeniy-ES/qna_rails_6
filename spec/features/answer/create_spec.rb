@@ -13,13 +13,13 @@ feature 'User can create answer', %q{
       visit question_path(question)
     end
 
-    scenario 'add a answer' do
+    scenario 'add a answer', js: true do
       fill_in 'Text', with: 'New answer'
       click_on 'Add answer'
       expect(page).to have_content 'New answer'
     end
 
-    scenario 'add a answer with errors ' do
+    scenario 'add a answer with errors ', js: true do
       click_on 'Add answer'
       expect(page).to have_content "Answer can't be blank."
     end

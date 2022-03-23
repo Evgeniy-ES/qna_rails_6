@@ -7,11 +7,14 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+
 require("jquery")
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+global.Rails = Rails;
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
