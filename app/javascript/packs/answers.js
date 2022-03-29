@@ -6,3 +6,9 @@ $(document).on('turbolinks:load', function(){
     $('form#edit-answer-' + answerId).removeClass('hidden');
   })
 });
+
+
+$(document).on('ajax:success', '.destroy-answer-link', function(e){
+ var answerId = $(this).data('answerId');
+ $(this).parentsUntil('.answers').remove();
+});

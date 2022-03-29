@@ -1,0 +1,4 @@
+$('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
+<% if @answer.persisted? %>
+  $('.answers').html('<%= render @question.answers %>')
+<% end %>

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
+  let(:not_author) { create(:user) }
   let(:user) { create(:user) }
   let(:question) { create(:question, author: user) }
 
@@ -38,11 +39,15 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    before { login(user) }
-    before { get :edit, params: { id: question } }
 
-    it 'renders edit view' do
-      expect(response).to render_template :edit
+    context 'The author' do
+      before { login(user) }
+      before { get :edit, params: { id: question } }
+
+      it 'renders edit view' do
+        expect(response).to render_template :edit
+      end
+
     end
   end
 

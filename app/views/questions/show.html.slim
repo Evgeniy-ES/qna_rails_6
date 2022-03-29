@@ -1,15 +1,10 @@
-h1= @question.title
-p= @question.body
-br
-  - if current_user&.author_of?(@question)
-    = link_to 'Delete the question', question_path(@question), method: :delete
+.question
+ = render question
 
-    br
-    .answers
-      = render @question.answers
-
-
+.answers
+  = render @question.answers
 
 .answer-errors
   = render 'shared/errors', resource: @answer
-= render 'answers/form', question: question
+.answer-new
+  = render 'answers/form', question: question

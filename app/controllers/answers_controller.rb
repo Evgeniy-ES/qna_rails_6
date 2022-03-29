@@ -3,8 +3,6 @@ class AnswersController < ApplicationController
   before_action :find_question, only: %i[ new create ]
   before_action :load_answer, only: %i[ show edit update destroy ]
 
-  def show
-  end
 
   def edit
   end
@@ -26,12 +24,26 @@ class AnswersController < ApplicationController
 
   def destroy
     if current_user.author_of?(@answer)
+      @question = @answer.question
       @answer.destroy
-      redirect_to question_path(@answer.question)
-    else
-      redirect_to question_path(@answer.question)
     end
   end
+
+  def mark_as_best
+   answer = Answer.find(params[:answer_id])
+   question = answer.question
+   question.update(best_answer_id: answer.id)
+
+   @best_answer = answer
+   @other_answers = question.answers.where.not(id: question.best_answer)
+
+   respond_to do |format|
+     format.js do
+       render :template => 'answers/mark_as_best.js.erb'
+     end
+   end
+ end
+
 
   private
 
