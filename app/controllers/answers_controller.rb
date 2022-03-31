@@ -41,11 +41,7 @@ class AnswersController < ApplicationController
    @best_answer = answer
    @other_answers = question.answers.where.not(id: question.best_answer)
 
-   respond_to do |format|
-     format.js do
-       render :template => 'answers/mark_as_best.js.erb'
-     end
-   end
+   render :template => 'answers/mark_as_best.js.erb'
  end
 
 
