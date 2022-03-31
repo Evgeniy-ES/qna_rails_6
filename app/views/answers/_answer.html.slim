@@ -1,0 +1,14 @@
+.answer
+  p= answer.text
+
+  - if current_user&.author_of?(answer)
+    p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+    p= link_to 'Delete the answer', answer_path(answer), class: 'destroy-answer-link', method: :delete,
+            data: { answer_id: answer.id, remote: true }
+    p= link_to 'Mark as best', answer_mark_as_best_path(answer), class: 'mark-best-answer-link',
+                     data: { answer_id: answer.id, remote: true }
+
+  = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+    = f.label :text, 'Your answer'
+    = f.text_area :text
+    = f.submit 'Save'

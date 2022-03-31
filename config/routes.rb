@@ -1,3 +1,10 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :users
+  resources :questions do
+    resources :answers, shallow: true, except: :index do
+      get :mark_as_best
+    end
+  end
+
+  root to: 'questions#index'
 end
