@@ -7,7 +7,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answer = Answer.new
+    @other_answers = question.answers.where.not(id: question.best_answer)
+    @best_answer = @question.best_answer
   end
 
   def new
@@ -29,7 +30,7 @@ class QuestionsController < ApplicationController
 
   def update
     if current_user.author_of?(@question)
-      question.update(question_params)
+      @question.update(question_params)
     end
   end
 

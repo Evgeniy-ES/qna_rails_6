@@ -10,7 +10,7 @@ feature 'Author can delete his answer', %q{
   given!(:answer) { create(:answer, question: question, author: author) }
 
   describe 'Authenticated user' do
-    scenario 'Author can delete his question' do
+    scenario 'Author can delete his question', js: true do
       sign_in(author)
       visit question_path(question)
       expect(page).to have_content 'My answer'
@@ -26,10 +26,10 @@ feature 'Author can delete his answer', %q{
   end
 
   describe 'Unauthenticated user' do
-    scenario 'Unauthenticated user can not delete the question' do
+    scenario 'can not delete the answer' do
       visit question_path(question)
       expect(page).to_not have_content 'Delete the answer'
-    end
+    end    
   end
 
 end

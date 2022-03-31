@@ -18,8 +18,12 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer.update(answer_params)
-    @question = @answer.question
+    if current_user.author_of?(@answer)
+      @answer.update(answer_params)
+      @question = @answer.question
+      @other_answers = @question.answers.where.not(id: @question.best_answer)
+      @best_answer = @question.best_answer
+    end
   end
 
   def destroy

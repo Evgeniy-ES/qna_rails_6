@@ -1,5 +1,6 @@
 $('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
 
 <% if !@answer.errors.present? %>
-  $('.answers').html('<%= j render @question.answers %>');
+  $('.answers').html('<%= j render 'answers/best_answer', resource: @best_answer %>');
+  $('.answers').append('<%= j render @other_answers %>');
 <% end %>

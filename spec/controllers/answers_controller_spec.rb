@@ -127,8 +127,8 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'redirect to answer' do
-        delete :destroy, params: { question_id: question, id: answer }, format: :js
-        expect(answer.text).to_not eq 'My answer'
+        delete :destroy, params: { id: answer }, format: :js
+        expect(response).to redirect_to question_path(question)
       end
     end
 

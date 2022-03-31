@@ -2,9 +2,11 @@
  = render question
 
 .answers
-  = render @question.answers
+  = render 'answers/best_answer', resource: @best_answer
+  = render @other_answers
 
 .answer-errors
   = render 'shared/errors', resource: @answer
 .answer-new
-  = render 'answers/form', question: question
+  - if user_signed_in?
+    = render 'answers/form', question: question
