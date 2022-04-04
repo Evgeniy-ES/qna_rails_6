@@ -23,13 +23,14 @@ feature 'Author can delete his answer', %q{
       visit question_path(question)
       expect(page).to_not have_content 'Delete the answer'
     end
+    
   end
 
   describe 'Unauthenticated user' do
     scenario 'can not delete the answer' do
       visit question_path(question)
       expect(page).to_not have_content 'Delete the answer'
-    end    
+    end
   end
 
 end

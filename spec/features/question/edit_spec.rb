@@ -54,6 +54,16 @@ feature 'User can edit his question', %q{
       expect(page).to_not(have_link( 'Edit the question' ))
     end
 
+    scenario 'delete file in a answer', js: true do
+      fill_in 'Your answer', with: 'Your answer'
+
+      attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      click_on 'Add answer'
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
+    end
+
   end
 
   describe 'Unauthenticated user' do
