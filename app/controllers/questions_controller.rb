@@ -35,12 +35,8 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of?(@question)
-      @question.destroy
-      redirect_to questions_path
-    else
-      redirect_to question_path
-    end
+    @question.destroy if current_user.author_of?(@question)
+    redirect_to questions_path
   end
 
   private
@@ -52,10 +48,10 @@ class QuestionsController < ApplicationController
   helper_method :question
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, files: [])
   end
 
   def load_question
-    @question = Question.find(params[:id])
+    @question = Question.with_attached_files.find(params[:id])
   end
 end

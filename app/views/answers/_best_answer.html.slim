@@ -4,6 +4,13 @@
       p= resource.text
       p= 'The best answer'
 
+      - if resource.files.attached?
+        - resource.files.each do |file|
+          p= link_to file.filename.to_s, url_for(file)
+          - if current_user&.author_of?(answer)
+            p= link_to 'Delete this file', file_path(file), class: 'delete-answer-file', method: :delete,
+                    data: { remote: true }
+
       - if current_user&.author_of?(resource)
         p= link_to 'Delete the answer', answer_path(resource), class: 'destroy-answer-link', method: :delete,
                 data: { answer_id: resource.id, remote: true }
@@ -12,4 +19,6 @@
         = form_with model: resource, class: 'hidden', html: { id: "edit-answer-#{resource.id}" }, local: false do |form|
           = form.label :text, 'Your answer'
           = form.text_area :text
+          = form.label :files
+          = form.file_field :files, multiple: true
           = form.submit 'Save'
