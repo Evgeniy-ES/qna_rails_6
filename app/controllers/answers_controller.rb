@@ -58,6 +58,6 @@ class AnswersController < ApplicationController
   helper_method :question, :answer
 
   def answer_params
-    params.require(:answer).permit(:text, :correct, files: [])
+    params.require(:answer).permit(:text, :correct, files: [], links_attributes: [:name, :url, :_destroy, :id])
   end
 end

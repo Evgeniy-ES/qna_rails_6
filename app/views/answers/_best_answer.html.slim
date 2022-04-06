@@ -3,6 +3,12 @@
     - if resource&.persisted?
       p= resource.text
       p= 'The best answer'
+      .links
+
+  p Links:
+  ul
+    - resource.links.each do |link|
+      li= link_to link.name, link.url
 
       - if resource.files.attached?
         - resource.files.each do |file|
