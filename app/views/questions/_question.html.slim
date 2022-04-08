@@ -22,4 +22,5 @@ p= question.body
   = form.text_area :body
   = form.label :files
   = form.file_field :files, multiple: true
+  = render 'links/form', resource: question, form: form
   = form.submit "Save"

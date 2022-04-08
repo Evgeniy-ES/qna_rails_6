@@ -10,6 +10,7 @@ feature 'User can edit answer', %q{
   given!(:author) { create(:user) }
   given!(:question) { create(:question, author: author) }
   given!(:answer) { create(:answer, question: question, author: author) }
+  given(:google_url) { 'https://www.google.ru/' }
 
   scenario 'Unauthenticated user can not edit answer' do
     visit question_path(question)
@@ -18,6 +19,27 @@ feature 'User can edit answer', %q{
   end
 
   describe 'Authenticated user' do
+    scenario 'edits his link with answer', js: true do
+      sign_in(author)
+      visit question_path(question)
+
+      click_on 'Edit'
+
+
+
+      within '.answers' do
+        click_on 'add link'
+       fill_in 'Link name', with: 'Google'
+       fill_in 'Url', with: google_url
+      end
+
+      click_on 'Save'
+
+      expect(page).to have_link 'Google', href: google_url
+
+
+    end
+
     scenario 'edits his answer', js: true do
       sign_in(author)
       visit question_path(question)
@@ -43,10 +65,10 @@ feature 'User can edit answer', %q{
       within '.answers' do
         fill_in 'Your answer', with: ''
         click_on 'Save'
-
         expect(page).to have_content answer.text
-        expect(page).to have_content "Text can't be blank"
       end
+
+      expect(page).to have_content "Text can't be blank"
     end
 
     scenario 'set answer as best', js: true do

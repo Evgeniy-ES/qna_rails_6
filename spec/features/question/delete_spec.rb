@@ -7,6 +7,8 @@ feature 'Author can delete his question', %q{
   given!(:user) { create(:user) }
   given!(:author) { create(:user) }
   given!(:question) { create(:question, author: author) }
+  given(:gist_url) { 'https://gist.github.com/Evgeniy-ES/2abda33eab54d47148358917d84fdb2e' }
+  given(:question_with_link) { create(:question, :with_link, author: author) }
 
   describe 'Authenticated user' do
     scenario 'Author can delete his question' do
@@ -14,7 +16,19 @@ feature 'Author can delete his question', %q{
       visit question_path(question)
 
       click_on 'Delete the question'
+
+      visit questions_path
       expect(page).to_not have_content question.title
+    end
+
+    scenario 'Author can delete link in his question', js: true do
+      sign_in(author)
+      visit question_path(question_with_link)
+
+      click_on 'Delete link'
+
+      expect(page).to_not have_link 'My gist', href: gist_url
+
     end
 
     scenario 'Any user can not delete random question' do

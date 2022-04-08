@@ -24,4 +24,5 @@
           = form.text_area :text
           = form.label :files
           = form.file_field :files, multiple: true
+          = render 'links/form', resource: resource, form: form
           = form.submit 'Save'

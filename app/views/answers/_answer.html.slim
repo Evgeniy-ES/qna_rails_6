@@ -1,11 +1,6 @@
 .answer
   p= answer.text
-
-  .links
-    p Links:
-    ul
-      - answer.links.each do |link|
-        li= link_to link.name, link.url
+  = render 'links/link', resource: answer
 
   - if answer.files.attached?
     - answer.files.each do |file|
@@ -26,4 +21,5 @@
     = f.text_area :text
     = f.label :files
     = f.file_field :files, multiple: true
+    = render 'links/form', resource: answer, form: f
     = f.submit 'Save'

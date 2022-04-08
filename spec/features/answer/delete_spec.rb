@@ -8,8 +8,29 @@ feature 'Author can delete his answer', %q{
   given!(:author) { create(:user) }
   given!(:question) { create(:question, author: author) }
   given!(:answer) { create(:answer, question: question, author: author) }
+  given(:gist_url) { 'https://gist.github.com/Evgeniy-ES/2abda33eab54d47148358917d84fdb2e' }
+
 
   describe 'Authenticated user' do
+
+    scenario 'Author can delete link in his answer', js: true do
+      sign_in(author)
+      visit question_path(question)
+
+      fill_in 'Your answer', with: 'New answer'
+      fill_in 'Link name', with: 'My gist'
+      fill_in 'Url', with: gist_url
+
+      click_on 'Add answer'
+      visit question_path(question)
+
+      click_on 'Delete link'
+
+      save_and_open_page
+      expect(page).to_not have_link 'My gist', href: gist_url
+
+    end
+
     scenario 'Author can delete his question', js: true do
       sign_in(author)
       visit question_path(question)
