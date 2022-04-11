@@ -86,6 +86,17 @@ feature 'User can edit answer', %q{
 
       expect(page).to_not have_content('Mark as best')
     end
+
+    scenario 'Author of answer recieve reward', js: true do
+      rewarded_answer = create(:answer, question: question_with_reward, author: not_author)
+      sign_in(author)
+      visit question_path(question_with_reward)
+
+      click_on 'Mark as best'
+      question_with_reward.reload
+
+      expect(question_with_reward.reward.user_id).to eq not_author.id
+    end
   end
 
   describe 'Unauthenticated user' do

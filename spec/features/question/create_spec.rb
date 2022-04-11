@@ -18,6 +18,18 @@ feature 'User can create question', %q{
       click_on 'Ask question'
     end
 
+    scenario 'ask a question reward' do
+      fill_in 'Title', with: 'Test question'
+      fill_in 'Body', with: 'text text text'
+
+      within '.reward' do
+        fill_in 'Reward name', with: 'My reward'
+        attach_file 'Image', "#{Rails.root}/app/assets/images/reward.png"
+      end
+      click_on 'Ask'
+      expect(Question.last.reward).to eq Reward.last
+    end
+
     scenario 'ask a question' do
       fill_in 'Title', with: 'Test question'
       fill_in 'Body', with: 'text text text'

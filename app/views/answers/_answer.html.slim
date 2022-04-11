@@ -13,6 +13,7 @@
     p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
     p= link_to 'Delete the answer', answer_path(answer), class: 'destroy-answer-link', method: :delete,
             data: { answer_id: answer.id, remote: true }
+  - if current_user&.author_of?(answer.question)
     p= link_to 'Mark as best', answer_mark_as_best_path(answer), class: 'mark-best-answer-link',
                      data: { answer_id: answer.id, remote: true }
 
