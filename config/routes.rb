@@ -7,6 +7,13 @@ Rails.application.routes.draw do
   end
 
   resources :files, only: %i[destroy]
+  resources :links, only: :destroy
 
   root to: 'questions#index'
+
+  resources :users, only: :rewards do
+   member do
+     get :rewards
+   end
+ end
 end

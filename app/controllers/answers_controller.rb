@@ -37,6 +37,7 @@ class AnswersController < ApplicationController
    answer = Answer.find(params[:answer_id])
    question = answer.question
    question.update(best_answer_id: answer.id)
+   question.set_best_answer(answer)
 
    @best_answer = answer
    @other_answers = question.answers.where.not(id: question.best_answer)
@@ -58,6 +59,6 @@ class AnswersController < ApplicationController
   helper_method :question, :answer
 
   def answer_params
-    params.require(:answer).permit(:text, :correct, files: [])
+    params.require(:answer).permit(:text, :correct, files: [], links_attributes: [:name, :url, :_destroy, :id])
   end
 end

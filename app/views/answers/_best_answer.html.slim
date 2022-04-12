@@ -3,6 +3,9 @@
     - if resource&.persisted?
       p= resource.text
       p= 'The best answer'
+      .links
+
+      = render 'links/link', resource: resource
 
       - if resource.files.attached?
         - resource.files.each do |file|
@@ -21,4 +24,5 @@
           = form.text_area :text
           = form.label :files
           = form.file_field :files, multiple: true
+          = render 'links/form', resource: resource, form: form
           = form.submit 'Save'

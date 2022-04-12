@@ -1,16 +1,16 @@
 div
-  = form_with model: [question, question.answers.new], remote:true, class: 'new-answer' do |form|
+  = form_with model: [question, @answer], remote:true, class: 'new-answer' do |f|
     div
-      = form.label :text, 'Your answer'
-      = form.text_area :text
+      = f.label :text, 'Your answer'
+      = f.text_area :text
       br
-      = form.label :correct
-      = form.check_box :correct
+      = f.label :correct
+      = f.check_box :correct
       br
-      = form.label :files
-      = form.file_field :files, multiple: true
+      = f.label :files
+      = f.file_field :files, multiple: true
 
-    = form.submit "Add answer"
+    .answer-links
+      = render 'links/form', resource: @answer, form: f
 
-
-= link_to 'Show', question, remote: true
+    = f.submit "Add answer"

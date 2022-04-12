@@ -1,3 +1,6 @@
+.question-errors
+  = render 'shared/errors', resource: @question
+
 .question
  = render question
 
@@ -10,3 +13,5 @@
 .answer-new
   - if user_signed_in?
     = render 'answers/form', question: question
+
+= link_to 'назад', questions_path

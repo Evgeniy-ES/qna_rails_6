@@ -30,6 +30,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'slim-rails'
 gem "aws-sdk-s3", require: false
+gem "cocoon"
+gem "octokit", "~> 4.0"
 
 
 group :development, :test do

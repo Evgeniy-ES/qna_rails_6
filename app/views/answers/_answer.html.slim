@@ -1,5 +1,6 @@
 .answer
   p= answer.text
+  = render 'links/link', resource: answer
 
   - if answer.files.attached?
     - answer.files.each do |file|
@@ -12,6 +13,7 @@
     p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
     p= link_to 'Delete the answer', answer_path(answer), class: 'destroy-answer-link', method: :delete,
             data: { answer_id: answer.id, remote: true }
+  - if current_user&.author_of?(answer.question)
     p= link_to 'Mark as best', answer_mark_as_best_path(answer), class: 'mark-best-answer-link',
                      data: { answer_id: answer.id, remote: true }
 
@@ -20,4 +22,5 @@
     = f.text_area :text
     = f.label :files
     = f.file_field :files, multiple: true
+    = render 'links/form', resource: answer, form: f
     = f.submit 'Save'
