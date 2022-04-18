@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+  include Voted
+  
   before_action :authenticate_user!
   before_action :find_question, only: %i[ new create ]
   before_action :load_answer, only: %i[ show edit update destroy ]
@@ -21,7 +23,7 @@ class AnswersController < ApplicationController
         format.json { render json: @answer }
       else
         format.json do
-          render json: @answer.errors.full_messages, status: :unprocessable_entity 
+          render json: @answer.errors.full_messages, status: :unprocessable_entity
         end
       end
     end
