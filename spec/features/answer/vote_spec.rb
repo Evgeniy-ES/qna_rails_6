@@ -21,7 +21,6 @@ feature 'The user votes for the answer', %q{
       within '.answers' do
         expect(page).to have_content 'Rating: 0'
         click_on '+'
-        visit question_path(question)
         expect(page).to have_content 'Rating: 1'
       end
     end
@@ -30,7 +29,7 @@ feature 'The user votes for the answer', %q{
       within '.answers' do
         expect(page).to have_content 'Rating: 0'
         click_on '-'
-        visit question_path(question)
+
         expect(page).to have_content 'Rating: -1'
       end
     end
@@ -39,10 +38,10 @@ feature 'The user votes for the answer', %q{
       within '.answers' do
         expect(page).to have_content 'Rating: 0'
         click_on '+'
-        visit question_path(question)
+
         expect(page).to have_content 'Rating: 1'
         click_on 'Cancel voting'
-        visit question_path(question)
+
         expect(page).to have_content 'Rating: 0'
       end
     end
