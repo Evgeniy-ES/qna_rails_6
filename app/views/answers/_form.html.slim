@@ -1,5 +1,5 @@
 div
-  = form_with model: [question, @answer], remote:true, class: 'new-answer' do |f|
+  = form_with model: [question, @answer], class: 'new-answer', data: { type: :json } do |f|
     div
       = f.label :text, 'Your answer'
       = f.text_area :text

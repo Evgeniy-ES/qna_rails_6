@@ -1,5 +1,6 @@
 .answer
   p= answer.text
+  = render 'shared/vote', resource: answer
   = render 'links/link', resource: answer
 
   - if answer.files.attached?

@@ -6,6 +6,7 @@
       .links
 
       = render 'links/link', resource: resource
+      = render 'shared/vote', resource: resource
 
       - if resource.files.attached?
         - resource.files.each do |file|
