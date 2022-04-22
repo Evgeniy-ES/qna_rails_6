@@ -1,8 +1,9 @@
 class QuestionsController < ApplicationController
   include Voted
-  
+
   before_action :authenticate_user!, except: %i[ index show ]
   before_action :load_question, only: %i[ show edit destroy update ]
+  after_action :publish_question, only: [:create]
 
   def index
     @questions = Question.all
@@ -27,7 +28,7 @@ class QuestionsController < ApplicationController
   def create
     @question = current_user.questions.new(question_params)
     if @question.save
-      redirect_to @question, notice: 'Your question successfully created.'
+      render json: @question, notice: 'Your question successfully created.'
     else
       render :new
     end
@@ -61,5 +62,17 @@ class QuestionsController < ApplicationController
 
   def load_question
     @question = Question.with_attached_files.find(params[:id])
+  end
+
+  def publish_question
+    return if question.errors.any?
+
+    ActionCable.server.broadcast(
+      'questions_channel',
+      ApplicationController.render(
+        partial: 'questions/question',
+        locals: { question: @question }
+      )
+    )
   end
 end

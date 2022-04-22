@@ -1,7 +1,7 @@
 h1= question.title
 p= question.body
 
-= render 'links/link', resource: @question
+= render 'links/link', resource: question
 = render 'shared/vote', resource: question
 
 - if @question.files.attached?
