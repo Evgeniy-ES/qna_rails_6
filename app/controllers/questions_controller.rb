@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   include Voted
+  include Commented
 
   before_action :authenticate_user!, except: %i[ index show ]
   before_action :load_question, only: %i[ show edit destroy update ]
@@ -28,7 +29,7 @@ class QuestionsController < ApplicationController
   def create
     @question = current_user.questions.new(question_params)
     if @question.save
-      render json: @question, notice: 'Your question successfully created.'
+      redirect_to @question, notice: 'Your question successfully created.'
     else
       render :new
     end
@@ -65,10 +66,9 @@ class QuestionsController < ApplicationController
   end
 
   def publish_question
-    return if question.errors.any?
-
+    return if @question.errors.any?
     ActionCable.server.broadcast(
-      'questions_channel',
+      'questions',
       ApplicationController.render(
         partial: 'questions/question',
         locals: { question: @question }
