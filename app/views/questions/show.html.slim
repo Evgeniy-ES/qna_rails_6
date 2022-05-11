@@ -4,6 +4,12 @@
 .question
  = render question
 
+.question-comments
+  h4 Comments:
+  = render question.comments
+- if current_user
+  = render 'comments/form_question', resource: question
+
 .answers
   = render 'answers/best_answer', resource: @best_answer
   = render @other_answers

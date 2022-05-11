@@ -10,6 +10,12 @@
         p= link_to 'Delete this file', file_path(file), class: 'delete-answer-file', method: :delete,
                 data: { remote: true }
 
+  .answer-comments id="answer-comments-#{answer.id}"
+    h4 Comments:
+    = render answer.comments
+  - if current_user
+    = render 'comments/form_answer', answer: answer
+
   - if current_user&.author_of?(answer)
     p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
     p= link_to 'Delete the answer', answer_path(answer), class: 'destroy-answer-link', method: :delete,

@@ -1,17 +1,18 @@
 .links
-  p Links:
-  ul
-    - resource.links.each do |link|
-      - if link.gist?
-        li= link_to link.name, link.url, data: { link_id: link.id }
-        - link.read_gist.each do |file, content|
-          = content.content
-      - else
-         li= link_to link.name, link.url, data: { link_id: link.id }
+  - if resource.links.present?
+    p Links:
+    ul
+      - resource.links.each do |link|
+        - if link.gist?
+          li= link_to link.name, link.url, data: { link_id: link.id }
+          - link.read_gist.each do |file, content|
+            = content.content
+        - else
+           li= link_to link.name, link.url, data: { link_id: link.id }
 
-      - if current_user&.author_of?(link.linkable)
-        = link_to 'Delete link',
-            link_path(link),
-            method: :delete, data: { link_id: link.id },
-            class: 'destroy-link-link',
-            remote: true
+        - if current_user&.author_of?(link.linkable)
+          = link_to 'Delete link',
+              link_path(link),
+              method: :delete, data: { link_id: link.id },
+              class: 'destroy-link-link',
+              remote: true

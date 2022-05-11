@@ -9,16 +9,18 @@ import "channels"
 import "./answers"
 import "./questions"
 import "./vote"
-
+import '@rails/actioncable'
 
 require("jquery")
 require("@nathanvda/cocoon")
+
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
 global.Rails = Rails;
+
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
