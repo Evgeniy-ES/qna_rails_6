@@ -9,8 +9,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :questions, concerns: :voted do
-    resources :answers, concerns: :voted, shallow: true, except: :index do
+  concern :commented do
+    member do
+      post :create_comment
+    end
+  end
+
+  resources :questions, concerns: [:voted, :commented] do
+    resources :answers, concerns: [:voted, :commented], shallow: true, except: :index do
       get :mark_as_best
     end
   end
@@ -27,4 +33,5 @@ Rails.application.routes.draw do
      get :rewards
    end
  end
+ mount ActionCable.server => '/cable'
 end
