@@ -32,6 +32,8 @@ gem 'slim-rails'
 gem "aws-sdk-s3", require: false
 gem "cocoon"
 gem "octokit", "~> 4.0"
+gem 'omniauth'
+gem 'omniauth-github'
 
 
 group :development, :test do
