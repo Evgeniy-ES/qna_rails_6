@@ -34,9 +34,11 @@ gem "cocoon"
 gem "octokit", "~> 4.0"
 gem 'omniauth'
 gem 'omniauth-github'
-
+gem 'jquery-rails'
 gem 'omniauth-vkontakte'
+gem "omniauth-rails_csrf_protection"
 gem 'capybara-email'
+gem 'gon'
 
 
 group :development, :test do
@@ -66,6 +68,7 @@ group :test do
   gem 'webdrivers'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'rails-controller-testing'
+  gem 'launchy'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
