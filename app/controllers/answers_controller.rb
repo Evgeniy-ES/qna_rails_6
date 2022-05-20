@@ -7,6 +7,7 @@ class AnswersController < ApplicationController
   before_action :load_answer, only: %i[ show edit update destroy ]
   after_action :publish_answer, only: [:create]
 
+  authorize_resource
 
   def edit
   end
