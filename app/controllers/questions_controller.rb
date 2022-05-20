@@ -6,6 +6,8 @@ class QuestionsController < ApplicationController
   before_action :load_question, only: %i[ show edit destroy update ]
   after_action :publish_question, only: [:create]
 
+  authorize_resource
+
   def index
     @questions = Question.all
   end
@@ -43,6 +45,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @question
     @question.destroy if current_user.author_of?(@question)
     redirect_to questions_path
   end

@@ -39,6 +39,7 @@ gem 'omniauth-vkontakte'
 gem "omniauth-rails_csrf_protection"
 gem 'capybara-email'
 gem 'gon'
+gem 'cancancan'
 
 
 group :development, :test do
