@@ -7,6 +7,7 @@ class AnswersController < ApplicationController
   before_action :load_answer, only: %i[ show edit update destroy ]
   after_action :publish_answer, only: [:create]
 
+  authorize_resource
 
   def edit
   end
@@ -32,6 +33,7 @@ class AnswersController < ApplicationController
   end
 
   def update
+    authorize @answer
     if current_user.author_of?(@answer)
       @answer.update(answer_params)
       @question = @answer.question
