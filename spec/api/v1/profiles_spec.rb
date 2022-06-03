@@ -45,4 +45,36 @@ describe 'Profiles API', type: :request do
       end
     end
   end
+
+  describe 'GET /api/v1/profiles/all' do
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :get }
+      let(:api_path) { '/api/v1/profiles/all' }
+    end
+
+    context 'unauthorized' do
+      it 'returns 401 status if there is no access_token' do
+        get '/api/v1/profiles/all', headers: headers
+        expect(response.status).to eq 401
+      end
+    end
+
+    context 'authorized' do
+      let!(:users) { create_list(:user, 3) }
+      let(:me) { users.first }
+      let(:user) { users.last }
+      let(:access_token) { create(:access_token, resource_owner_id: me.id) }
+
+      before { do_request(method, api_path,
+                          params: { access_token: access_token.token },
+                          headers: headers) }
+
+      it 'does not contains current_user' do
+        json['users'].each do |user|
+          expect(user['id']).to_not eq me.id
+        end
+      end
+    end
+  end
+
 end
