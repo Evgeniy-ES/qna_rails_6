@@ -3,7 +3,7 @@ span
     = "Welcome, #{current_user.email}"
     = link_to 'Rewards', rewards_user_path(current_user), class: 'btn mt-3'
     br
-    = link_to 'Logout', destroy_user_session_path, method: :delete
+    = link_to 'Logout', destroy_user_session_path
   - else
     = link_to 'sign in', :new_user_session
     br
