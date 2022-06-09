@@ -16,10 +16,19 @@ class Question < ApplicationRecord
 
   validates :title, :body, presence: true
 
+  after_create :calculate_reputation
+
   def set_best_answer(answer)
     transaction do
       self.update!(best_answer: answer)
       self.reward&.update!(user: answer.author)
     end
   end
+
+  private
+
+  def calculate_reputation
+    ReputationJob.perform_later(self)
+  end
+
 end
