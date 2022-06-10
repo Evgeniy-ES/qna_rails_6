@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   end
 
   resources :questions, concerns: [:voted, :commented] do
+    resources :subscriptions, only: [:create, :destroy], shallow: true
     resources :answers, concerns: [:voted, :commented], shallow: true, except: :index do
       get :mark_as_best
     end
