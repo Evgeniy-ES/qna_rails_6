@@ -1,4 +1,4 @@
-class Services::FindForOauth
+class FindForOauthService
   attr_reader :auth
 
   def initialize(auth)

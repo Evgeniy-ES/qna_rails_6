@@ -18,8 +18,6 @@ module QnaRails6
 
     config.active_job.queue_adapter = :sidekiq
 
-    config.autoload_paths << config.root.join('app')
-
     config.generators do |g|
       g.test_framework :rspec,
                        view_specs: false,
