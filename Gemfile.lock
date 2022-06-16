@@ -407,7 +407,6 @@ DEPENDENCIES
   webdrivers
   webpacker (~> 4.0)
   whenever
-  zeitwerk (~> 2.6)
 
 RUBY VERSION
    ruby 2.7.2p137
