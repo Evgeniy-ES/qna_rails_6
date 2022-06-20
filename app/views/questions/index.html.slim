@@ -1,6 +1,6 @@
 .questions
   - @questions.each do |q|
-    p= link_to q.title, q
+    p style="padding:0.5em;" = link_to q.title, q
 
 - if can?(:create, Question)
   p= link_to 'Ask question', new_question_path
