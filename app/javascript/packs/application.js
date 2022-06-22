@@ -8,6 +8,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "./answers"
 import "./questions"
+import "./search"
 import "./vote"
 import '@rails/actioncable'
 
