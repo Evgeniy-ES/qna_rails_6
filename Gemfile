@@ -51,7 +51,7 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'whenever', require: false
 
-gem 'mini_racer', '~> 0.6.1'
+gem 'mini_racer', '0.6.2'
 
 
 group :development, :test do
