@@ -3,7 +3,7 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-server "10.10.51.10", user: "eva", roles: %w{app db web}, primary: true
+server "87.117.181.100", user: "eva", roles: %w{app db web}, primary: true
 set :rail_env, :production
 
 # Custom SSH Options
