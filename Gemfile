@@ -51,6 +51,8 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'whenever', require: false
 
+#gem 'unicorn'
+
 #gem 'mini_racer'
 
 
@@ -77,6 +79,8 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-passenger', require: false
+  gem 'capistrano-sidekiq', require: false
+  #gem 'capistrano3-unicorn'
 end
 
 group :test do
