@@ -53,7 +53,7 @@ gem 'whenever', require: false
 
 gem 'unicorn'
 
-gem 'mini_racer'
+#gem 'mini_racer'
 
 
 group :development, :test do
