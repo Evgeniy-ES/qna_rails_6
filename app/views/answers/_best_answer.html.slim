@@ -1,19 +1,20 @@
-.data-best-answer
-  .answer
-    - if resource&.persisted?
-      p= resource.text
-      p= 'The best answer'
-      .links
+- cache resource do
+  .data-best-answer
+    .answer
+      - if resource&.persisted?
+        p= resource.text
+        p= 'The best answer'
+        .links
 
-      = render 'links/link', resource: resource
-      = render 'shared/vote', resource: resource
+        = render 'links/link', resource: resource
+        = render 'shared/vote', resource: resource
 
-      - if resource.files.attached?
-        - resource.files.each do |file|
-          p= link_to file.filename.to_s, url_for(file)
-          - if current_user&.author_of?(answer)
-            p= link_to 'Delete this file', file_path(file), class: 'delete-answer-file', method: :delete,
-                    data: { remote: true }
+        - if resource.files.attached?
+          - resource.files.each do |file|
+            p= link_to file.filename.to_s, url_for(file)
+            - if current_user&.author_of?(answer)
+              p= link_to 'Delete this file', file_path(file), class: 'delete-answer-file', method: :delete,
+                      data: { remote: true }
 
       - if current_user&.author_of?(resource)
         p= link_to 'Delete the answer', answer_path(resource), class: 'destroy-answer-link', method: :delete,

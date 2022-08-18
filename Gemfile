@@ -53,6 +53,8 @@ gem 'whenever', require: false
 
 gem 'unicorn'
 
+gem 'redis-rails'
+
 #gem 'mini_racer'
 
 
