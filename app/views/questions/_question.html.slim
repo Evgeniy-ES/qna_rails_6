@@ -1,31 +1,32 @@
-h1= question.title
-p= question.body
+- cache question do
+  h1= question.title
+  p= question.body
 
-= render 'links/link', resource: question
-= render 'shared/vote', resource: question
+  = render 'links/link', resource: question
+  = render 'shared/vote', resource: question
 
 
-.subscription
-    = render 'subscriptions/subscription', resource: question
+  .subscription
+      = render 'subscriptions/subscription', resource: question
     
-- if @question.files.attached?
-  - @question.files.each do |file|
-    p= link_to file.filename.to_s, url_for(file)
-    - if current_user&.author_of?(question)
-      p= link_to 'Delete this file', file_path(file), class: 'delete-question-file', method: :delete,
-                data: { remote: true }
+  - if @question.files.attached?
+    - @question.files.each do |file|
+      p= link_to file.filename.to_s, url_for(file)
+      - if current_user&.author_of?(question)
+        p= link_to 'Delete this file', file_path(file), class: 'delete-question-file', method: :delete,
+                  data: { remote: true }
 
-- if current_user&.author_of?(question)
-  p= link_to 'Edit the question', '#', class: 'edit-question-link', data: { question_id: question.id }
-  p= link_to 'Delete the question', question_path(question), method: :delete, data: { question_id: question.id }
+  - if current_user&.author_of?(question)
+    p= link_to 'Edit the question', '#', class: 'edit-question-link', data: { question_id: question.id }
+    p= link_to 'Delete the question', question_path(question), method: :delete, data: { question_id: question.id }
 
 
-= form_with model: question, class: 'hidden', html: { id: "edit-question-#{question.id}" }, local: false do |form|
-  = form.label :title, 'Your title question'
-  = form.text_field :title
-  = form.label :body, 'Your body question'
-  = form.text_area :body
-  = form.label :files
-  = form.file_field :files, multiple: true
-  = render 'links/form', resource: question, form: form
-  = form.submit "Save"
+  = form_with model: question, class: 'hidden', html: { id: "edit-question-#{question.id}" }, local: false do |form|
+    = form.label :title, 'Your title question'
+    = form.text_field :title
+    = form.label :body, 'Your body question'
+    = form.text_area :body
+    = form.label :files
+    = form.file_field :files, multiple: true
+    = render 'links/form', resource: question, form: form
+    = form.submit "Save"

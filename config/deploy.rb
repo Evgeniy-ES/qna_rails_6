@@ -8,6 +8,8 @@ set :repo_url, "git@github.com:Evgeniy-ES/qna_rails_6.git"
 set :deploy_to, "/home/eva/qna"
 set :deploy_user, 'eva'
 
+set :passenger_restart_with_touch, true
+
 # Default value for :linked_files is []
 append :linked_files, "config/database.yml", 'config/master.key'
 
